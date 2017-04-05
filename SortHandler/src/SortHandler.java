@@ -3,14 +3,16 @@ public class SortHandler {
     
     public static void main(String args[])
     {
-        int a[] = {3,1,5,7,2,4,9,6};  
+        int a[] = {13,12,5,71,2,54,9,6};  
 //        straightInsertSort(a,8);  
 //        print(a,8);
 //        shellSort(a, 8);
 //        print(a,8);
 //        simpleSelectSort(a,8);
 //        print(a,8);
-        bubbleSort2(a, 8);
+//        bubbleSort2(a, 8);
+//        print(a,8);
+        quickSort(a,8);
         print(a,8);
     }
     
@@ -158,5 +160,69 @@ public class SortHandler {
             
             print(a, 8);
         }
+    }
+    
+    public static void swap(int a[], int i, int j)
+    {
+    	int temp = a[i];
+    	a[i] = a[j];
+    	a[j] = temp;
+    }
+    
+    public static int partition(int a[], int low, int high)
+    {
+    	int pivotLoc = low;
+    	int temp;
+    	while(low < high)
+    	{
+    		while(a[high] > a[pivotLoc] && low < high)
+    		{
+    			high --;
+    		}
+    		
+    		if(low < high)
+    		{
+    			swap(a, pivotLoc, high);
+    			pivotLoc = high;
+    		}
+    		else
+    		{	
+    			break;
+    		}
+    		
+    		while(a[low] < a[pivotLoc] && low < high)
+    		{
+    			low ++;
+    		}
+    		
+    		if(low < high)
+    		{
+    			swap(a, pivotLoc, low);
+    			pivotLoc = low;
+    		}
+    		else
+    		{
+    			break;
+    		}
+    	}
+    	
+    	print(a, 8);
+    	
+    	return pivotLoc;
+    }
+    
+    public static void quickSort(int a[], int low, int high)
+    {
+    	if(low < high)
+    	{
+    		int pivotLoc = partition(a, low, high);
+    		quickSort(a, low, pivotLoc - 1);
+    		quickSort(a, pivotLoc + 1, high);
+    	}
+    }
+    
+    public static void quickSort(int a[], int length)
+    {
+    	quickSort(a, 0, length-1);
     }
 }
