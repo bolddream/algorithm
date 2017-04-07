@@ -6,11 +6,20 @@ public class ArrayHandler {
     
     public static void main(String[] args) {
         // TODO Auto-generated method stub
-        int[] arr = { 1, -2, 3, 10, -4, 7, 2, -5 };
+        int[] arr = { 3, 11, -12, 99, -100, 1, -2, 3, 10, -4, 7, 2, -5 };
         MaxLocation loc = new MaxLocation(0,0);
         int max = findMaxSum(arr, 0, loc);
         System.out.println("MaxSum:" + max);
         System.out.println("start:" + loc.start + "end:" + loc.end);
+//        String src = "asdfw3erdfasdxcc";
+//        String sub = "fw3";
+//        int loc = findSubString(src, sub);
+//        System.out.println(loc);
+    }
+    
+    public static int findSubString(String src, String sub)
+    {
+        return src.indexOf(sub);
     }
     
     public static Integer findMaxSum(int a[], int n, MaxLocation loc)
@@ -19,6 +28,7 @@ public class ArrayHandler {
         int curSum = 0;
         int maxSum = 0;
         loc.start = 0;
+        int tempStart = 0;
         for(int i = 0; i < n -1; i++)
         {
             curSum += a[i];
@@ -26,7 +36,7 @@ public class ArrayHandler {
             if(curSum < 0)
             {
                 curSum = 0;
-                loc.start = i + 1;
+                tempStart = i + 1;
             }
             
             if(curSum > maxSum)
@@ -34,6 +44,11 @@ public class ArrayHandler {
                 maxSum = curSum;
                 loc.end = i;
             }
+        }
+        
+        if(tempStart <= loc.end)
+        {
+            loc.start = tempStart;
         }
         
         //all data are negtive
@@ -55,5 +70,7 @@ public class ArrayHandler {
         
         return maxSum;
     }
+    
+    
 
 }
