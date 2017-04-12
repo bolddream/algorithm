@@ -51,7 +51,7 @@ public class ArrayHandler {
             loc.start = tempStart;
         }
         
-        //all data are negtive
+        //all data are negative
         if(maxSum == 0)
         {
             maxSum = a[0];

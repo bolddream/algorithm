@@ -110,6 +110,22 @@ public class SortHandler {
     public static void heapSelectSort(int a[], int n)
     {
         
+//        buildHeap(a, length);
+//        
+//        for(int i = length -1; i > 0; i --)
+//        {
+//            heapTop = 
+//        }
+    }
+    
+    public static void buildHeap(int a[], int n)
+    {
+        ;
+    }
+    
+    public static int heapAjust(int a[], int s, int length)
+    {
+        return s;
     }
     
     public static void bubbleSort(int a[], int n)
@@ -145,7 +161,6 @@ public class SortHandler {
                     a[j+1] = temp;
                 }
             }
-            low ++;
             
             for(int k = high; k > low; k--)
             {
@@ -156,8 +171,9 @@ public class SortHandler {
                     a[k-1] = temp;
                 }
             }
+            low ++;
             high --;
-            
+    
             print(a, 8);
         }
     }
