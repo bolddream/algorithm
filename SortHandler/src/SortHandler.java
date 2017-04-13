@@ -12,7 +12,10 @@ public class SortHandler {
 //        print(a,8);
 //        bubbleSort2(a, 8);
 //        print(a,8);
-        quickSort(a,8);
+//        quickSort(a,8);
+//        print(a,8);
+        print(a,8);
+        heapSort(a,8);
         print(a,8);
     }
     
@@ -107,25 +110,53 @@ public class SortHandler {
         }
     }
     
-    public static void heapSelectSort(int a[], int n)
+    public static void heapSort(int a[], int length)
     {
         
-//        buildHeap(a, length);
-//        
-//        for(int i = length -1; i > 0; i --)
-//        {
-//            heapTop = 
-//        }
+        buildHeap(a, length);
+        print(a,8);
+        
+        for(int i = length -1; i > 0; i --)
+        {
+            swap(a, 0, i);
+            heapAjust(a, 0, i-1);
+            print(a,8);
+        }
     }
     
-    public static void buildHeap(int a[], int n)
+    public static void buildHeap(int a[], int length)
     {
-        ;
+        for(int i = length/2 -1; i >= 0; i --)
+        {
+            heapAjust(a, i, length);
+        }
     }
     
-    public static int heapAjust(int a[], int s, int length)
+    public static void heapAjust(int a[], int s, int length)
     {
-        return s;
+        if(s < 0)
+        {
+            return;
+        }
+        
+        int child = 2 * s + 1;
+        while(child < length)
+        {
+            if(child + 1 < length && a[child] > a[child + 1])
+            {
+                child ++;
+            }
+            if(a[child] < a[s])
+            {
+                swap(a, child, s);
+                s = child;
+                child = 2*s + 1;
+            }
+            else
+            {
+                break;
+            }
+        }
     }
     
     public static void bubbleSort(int a[], int n)
@@ -188,7 +219,6 @@ public class SortHandler {
     public static int partition(int a[], int low, int high)
     {
     	int pivotLoc = low;
-    	int temp;
     	while(low < high)
     	{
     		while(a[high] > a[pivotLoc] && low < high)
@@ -240,5 +270,14 @@ public class SortHandler {
     public static void quickSort(int a[], int length)
     {
     	quickSort(a, 0, length-1);
+    }
+    
+    public static void mergeSort(int a[], int b[], int length)
+    {
+        int len=1;
+        for(int i = 1; i < length; i *= 2)
+        {
+            
+        }
     }
 }
