@@ -14,8 +14,11 @@ public class SortHandler {
 //        print(a,8);
 //        quickSort(a,8);
 //        print(a,8);
+//        print(a,8);
+//        heapSort(a,8);
+//        print(a,8);
         print(a,8);
-        heapSort(a,8);
+        mergeSort(a);
         print(a,8);
     }
     
@@ -272,12 +275,69 @@ public class SortHandler {
     	quickSort(a, 0, length-1);
     }
     
-    public static void mergeSort(int a[], int b[], int length)
+    public static void mergeSort(int a[])
     {
-        int len=1;
-        for(int i = 1; i < length; i *= 2)
+        int low = 0, high = a.length - 1;
+        mergeSort(a, low, high);
+    }
+    
+    public static void mergeSort(int a[], int low, int high)
+    {
+        System.out.println("mergeSort-- " + "low: " + low + " high: " + high);
+        int mid = (low + high) / 2;
+        if(low < high)
         {
-            
+            mergeSort(a, low, mid);
+            mergeSort(a, mid + 1, high);
+            merge(a, low, mid, high);
+        }
+        print(a,8);
+        return;
+    }
+
+
+
+    private static void merge(int[] a, int low, int mid, int high) 
+    {
+        if(low >= high)
+        {
+            return;
+        }
+        int[] temp = new int[high - low + 1];
+        
+        int i=low, j=mid + 1, k=0;
+        for(; i <= mid && j <= high; k++)
+        {
+            if(a[i] < a[j])
+            {
+                temp[k] = a[i];
+                i++;
+            }
+            else
+            {
+                temp[k] = a[j];
+                j++;
+            }
+        }
+        
+        if(i <= mid)
+        {
+            for(; i <= mid; i++,k++)
+            {
+                temp[k] = a[i];
+            }
+        }
+        else if(j <= high)
+        {
+            for(; j <= high; j++,k++)
+            {
+                temp[k] = a[j];
+            }
+        }
+        
+        for(int m = 0; m < temp.length; m++)
+        {
+            a[m + low] = temp[m];
         }
     }
 }
