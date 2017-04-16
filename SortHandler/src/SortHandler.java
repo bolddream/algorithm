@@ -3,7 +3,7 @@ public class SortHandler {
     
     public static void main(String args[])
     {
-        int a[] = {13,12,5,71,2,54,9,6};  
+        //int a[] = {13,12,5,71,2,54,9,6};  
 //        straightInsertSort(a,8);  
 //        print(a,8);
 //        shellSort(a, 8);
@@ -17,9 +17,12 @@ public class SortHandler {
 //        print(a,8);
 //        heapSort(a,8);
 //        print(a,8);
-        print(a,8);
-        mergeSort(a);
-        print(a,8);
+//        print(a,8);
+//        mergeSort(a);
+//        print(a,8);
+        
+        int[] a = { 49, 38, 65, 197, 76, 213, 27, 50 };
+        radixSort(a);
     }
     
     
@@ -274,7 +277,7 @@ public class SortHandler {
     {
     	quickSort(a, 0, length-1);
     }
-    
+
     public static void mergeSort(int a[])
     {
         int low = 0, high = a.length - 1;
@@ -340,4 +343,82 @@ public class SortHandler {
             a[m + low] = temp[m];
         }
     }
+    
+    public static int getMaxDigits(int a[])
+    {
+    	//first get the max one
+    	int max = a[0];
+    	for(int i = 1; i < a.length; i++)
+    	{
+    		if(max < a[i])
+    		{
+    			max = a[i];
+    		}
+    	}
+    	if(max < 0)
+    	{
+    		return -1;
+    	}
+    	
+    	//then get the max digits
+    	int digits = 0;
+    	while(max > 0)
+    	{
+    		digits ++;
+    		max /= 10;
+    	}
+    	return digits;
+    }
+    
+    public static int getNumInPosition(int number, int digit)
+    {
+    	for(int i = 0; i < digit; i ++)
+    	{
+    		number /= 10;
+    	}
+    	
+    	number %= 10;
+    	return number;
+    }
+    
+    public static void radixSort(int a[])
+    {
+    	int length = a.length;
+    	int digits = getMaxDigits(a);
+    	int array[][] = new int[10][a.length + 1];
+    	for(int i = 0; i < 10; i++)
+    	{
+    		//the first element stores the column count; 
+    		//instantiate
+       		array[i][0] = 0;  
+    	}
+    	
+    	print(a, 8);
+    	
+    	for(int i = 0; i < digits; i++)
+    	{
+    		for(int j = 0; j < length; j++)
+    		{
+    			int row = getNumInPosition(a[j], i);
+    			int col = ++array[row][0];
+    			array[row][col] = a[j];
+    		}
+    		
+    		for(int row = 0, m = 0; row < 10; row++)
+    		{
+    			int cols = array[row][0];
+    			for(int col = 1; col <= cols; col++)
+    			{
+    				a[m++] = array[row][col];
+    			}
+    			
+    			//reinitialize
+    			array[row][0] = 0;
+    		}
+    		
+    		print(a, 8);
+    	}
+    }
+
+    
 }
