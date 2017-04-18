@@ -3,7 +3,6 @@ public class AVLTree<T extends Comparable<T>>
 {
     
     public TreeNode<T> rootNode;
-    public int height;
     
     public int getMaxHeight(TreeNode<T> root)
     {
@@ -170,14 +169,14 @@ public class AVLTree<T extends Comparable<T>>
 
         if(deleteNode.data.compareTo(currentNode.data) > 0)
         {
-            currentNode = deleteTreeNode(deleteNode, currentNode.rson);
+            currentNode.rson = deleteTreeNode(deleteNode, currentNode.rson);
             currentNode.height = getMaxHeight(currentNode);
             
             rootNode = ajustAVLTree(currentNode);
         }
         else if(deleteNode.data.compareTo(currentNode.data) < 0)
         {
-            currentNode = deleteTreeNode(deleteNode, currentNode.lson);
+            currentNode.lson = deleteTreeNode(deleteNode, currentNode.lson);
             currentNode.height = getMaxHeight(currentNode);
             
             rootNode = ajustAVLTree(currentNode);
@@ -190,7 +189,37 @@ public class AVLTree<T extends Comparable<T>>
             }
             else
             {
-                currentNode = null;
+                TreeNode<T> temp = currentNode;
+                if(currentNode.lson != null && currentNode.rson != null)
+                {
+                    //get the min value node of right son tree, then replace the currentNode;
+                    TreeNode<T> minValueRightSon;
+                    temp = currentNode.rson;
+                    while(temp.lson != null)
+                    {
+                        minValueRightSon = temp;
+                        temp = temp.lson;
+                    }
+                    
+                    currentNode.data = temp.data;
+                    currentNode.freq = temp.freq;
+                    currentNode.rson = deleteTreeNode(temp, currentNode.rson);
+                }
+                else if(currentNode.lson == null)
+                {
+                    currentNode = currentNode.rson;
+                }
+                else 
+                {
+                    currentNode = currentNode.lson;
+                }
+                
+                if(currentNode != null)
+                {
+                    currentNode.height = getMaxHeight(currentNode);
+                    currentNode = ajustAVLTree(currentNode);
+                }
+                
             }
             rootNode = currentNode;
         }
