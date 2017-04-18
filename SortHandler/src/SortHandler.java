@@ -20,9 +20,9 @@ public class SortHandler {
 //        print(a,8);
 //        mergeSort(a);
 //        print(a,8);
-        
-        int[] a = { 49, 38, 65, 197, 76, 213, 27, 50 };
-        radixSort(a);
+//        
+//        int[] a = { 49, 38, 65, 197, 76, 213, 27, 50 };
+//        radixSort(a);
     }
     
     

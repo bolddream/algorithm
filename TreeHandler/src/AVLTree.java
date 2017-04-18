@@ -63,13 +63,13 @@ public class AVLTree<T extends Comparable<T>>
     
     public TreeNode<T> doubleRotateLeftRight(TreeNode<T> k3)
     {
-        singleRotateRight(k3.lson);
+        k3.lson = singleRotateRight(k3.lson);
         return singleRotateLeft(k3);
     }
     
     public TreeNode<T> doubleRotateRightLeft(TreeNode<T> k3)
     {
-        singleRotateLeft(k3.rson);
+        k3.rson = singleRotateLeft(k3.rson);
         return singleRotateRight(k3);
     }
     
@@ -85,7 +85,7 @@ public class AVLTree<T extends Comparable<T>>
             return currentNode;
         }
         
-        TreeNode<T> rootNode;
+        TreeNode<T> rootNode = currentNode;
         if(currentNode == null)
         {
             currentNode = insertNode;
@@ -97,13 +97,13 @@ public class AVLTree<T extends Comparable<T>>
     
         if(insertNode.data.compareTo(currentNode.data) > 0)
         {
-            rootNode = insertTreeNode(insertNode, currentNode.rson);
+            currentNode.rson = insertTreeNode(insertNode, currentNode.rson);
             currentNode.height = getMaxHeight(currentNode);
             rootNode = ajustAVLTree(currentNode);
         }
         else if(insertNode.data.compareTo(currentNode.data) < 0)
         {
-            currentNode = insertTreeNode(insertNode, currentNode.lson);
+            currentNode.lson = insertTreeNode(insertNode, currentNode.lson);
             currentNode.height = getMaxHeight(currentNode);
             rootNode = ajustAVLTree(currentNode);
         }
@@ -120,11 +120,15 @@ public class AVLTree<T extends Comparable<T>>
     public TreeNode<T> ajustAVLTree(TreeNode<T> currentNode)
     {
         TreeNode<T> rootNode = currentNode;
-        int leftSonHeight = currentNode.lson.height;
-        int rightSonHeight = currentNode.rson.height;
+        
+        int leftSonHeight = (currentNode.lson != null) ? currentNode.lson.height : 0;
+        int rightSonHeight = (currentNode.rson != null) ? currentNode.rson.height : 0;
         if(2 == rightSonHeight - leftSonHeight)
         {
-            if(currentNode.rson.lson.height > currentNode.rson.rson.height)
+        	int rightLeftSonHeight = (currentNode.rson.lson != null) ? currentNode.rson.lson.height : 0;
+            int rightRightSonHeight = (currentNode.rson.rson != null) ? currentNode.rson.rson.height : 0;
+            
+            if(rightLeftSonHeight > rightRightSonHeight)
             {
                 //RL
                 rootNode = doubleRotateRightLeft(currentNode);
@@ -137,7 +141,10 @@ public class AVLTree<T extends Comparable<T>>
         }
         else if(2 == leftSonHeight - rightSonHeight)
         {
-            if(currentNode.rson.lson.height > currentNode.rson.rson.height)
+        	int leftLeftSonHeight = (currentNode.lson.lson != null) ? currentNode.lson.lson.height : 0;
+            int leftRightSonHeight = (currentNode.lson.rson != null) ? currentNode.lson.rson.height : 0;
+            
+            if(leftLeftSonHeight > leftRightSonHeight)
             {
                 //LL
                 rootNode = singleRotateLeft(currentNode);
@@ -215,4 +222,20 @@ public class AVLTree<T extends Comparable<T>>
         
         return result;
     }
+    
+    public void middleTraverseTree(TreeNode<T> rootNode)
+    {
+        if(rootNode == null)
+        {
+            return ;
+        }
+        
+        if(rootNode.data != null)
+        {
+        	System.out.print(rootNode.data.toString() + "  ");
+        }
+              
+        middleTraverseTree(rootNode.lson);
+        middleTraverseTree(rootNode.rson);
+     }
 }
