@@ -266,5 +266,5 @@ public class AVLTree<T extends Comparable<T>>
               
         middleTraverseTree(rootNode.lson);
         middleTraverseTree(rootNode.rson);
-     }
+    }
 }
