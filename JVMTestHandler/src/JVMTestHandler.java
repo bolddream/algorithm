@@ -3,8 +3,8 @@ public class JVMTestHandler {
 
     public static void main(String args[])
     {
-        //new JVMTestHandler().doTest();
-        new JVMTestHandler().infinitelyRecursiveMethod(1);
+        new JVMTestHandler().doTest();
+        //new JVMTestHandler().infinitelyRecursiveMethod(1);
     }
     
     public void doTest()
